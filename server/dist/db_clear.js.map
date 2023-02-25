@@ -1,0 +1,1 @@
+{"version":3,"file":"db_clear.js","sourceRoot":"","sources":["../src/db_clear.ts"],"names":[],"mappings":";;;;;;;;;;;;;;AAAA,8CAAsB;AAGtB,kBAAe,GAAS,EAAE;IACtB,MAAM,YAAE,CAAC,KAAK,CAAC,kBAAkB,CAAC,CAAC;IACnC,MAAM,YAAE,CAAC,KAAK,CAAC,oBAAoB,CAAC,CAAC;IACrC,MAAM,YAAE,CAAC,KAAK,CAAC,mBAAmB,CAAC,CAAC;IACpC,MAAM,YAAE,CAAC,KAAK,CAAC,oBAAoB,CAAC,CAAC;AACzC,CAAC,CAAA,CAAA"}
