@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "tsc && node ./dist/index.js",
+    "generate": "tsc && node ./dist/demo_db_genertor/index.js",
+    "file_storage": "node ./files/file-server.js",
+    "recreate db": "tsc && node ./dist/db/recreate.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@metaplex-foundation/mpl-token-metadata": "^2.8.3",
+    "@solana/spl-token": "^0.3.7",
+    "@solana/web3.js": "^1.73.2",
+    "chatgpt": "^4.4.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "inferkit": "^1.0.3",
+    "lorem-ipsum": "^2.0.8",
+    "nacl-signature": "^2.0.3",
+    "pg": "^8.9.0",
+    "socket.io": "^4.6.0",
+    "tweetnacl": "^1.0.3",
+    "unique-names-generator": "^4.7.1"
+  }
+}
