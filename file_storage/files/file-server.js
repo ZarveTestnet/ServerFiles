@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 3333;
+const port = 333; // Revers proxy to 3333
 const cors = require('cors');
 
 
