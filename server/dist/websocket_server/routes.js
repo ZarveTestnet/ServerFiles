@@ -47,6 +47,6 @@ exports.default = {
         });
     },
     SocketRequired: new Set(['Subscribe', 'UnSubscribe']),
-    VerificationRequired: new Set(["GetUserOffers", "GetPastOffers"])
+    VerificationRequired: new Set(["GetUserOffers", "GetPastOffers", 'CreateOffer', 'CancelOffer', 'AcceptOffer'])
 };
 //# sourceMappingURL=routes.js.map

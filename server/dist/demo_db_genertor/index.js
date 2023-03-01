@@ -47,7 +47,7 @@ function Do() {
             const nftUrl = (0, metadata_1.writeMetadata)(nftMetadata, nftMetadata.symbol + i.toString());
             const [mint, account, meta] = yield (0, transactions_1.createNFT)(nftMetadata.name, nftMetadata.symbol, nftUrl, wallet, collectionMint, collectionMeta, collectionMaster);
             const offer = yield (0, transactions_1.createOffer)(wallet, deck, mint, account, meta);
-            yield offer_controller_1.default.create(wallet.publicKey.toBase58(), collectionMetadata.name, offer.toBase58(), nftMetadata.name, nftMetadata.image, "65536");
+            yield offer_controller_1.default.create("0", wallet.publicKey.toBase58(), collectionMetadata.name, offer.toBase58(), nftMetadata.name, nftMetadata.image, "65536");
         }
         console.log(yield global_state_1.default.pack());
     });

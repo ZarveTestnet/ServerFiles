@@ -1,0 +1,1 @@
+{"version":3,"file":"consensus.d.ts","sourceRoot":"","sources":["../../src/transaction-verifier/consensus.ts"],"names":[],"mappings":"AAEA,OAAO,EAA8B,cAAc,EAAa,MAAM,SAAS,CAAC;AAgDhF,wBAAsB,qBAAqB,CAAC,GAAG,EAAE,cAAc,EAAE,WAAW,EAAE,MAAM,iBAoBnF;AAqBD,eAAO,MAAM,EAAE;;;;CAId,CAAA"}

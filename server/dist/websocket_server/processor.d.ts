@@ -7,6 +7,7 @@ export interface MessageIn {
         key: string;
         signature: number[];
     };
+    tx: string | undefined;
 }
 export interface MessageOut {
     result: object | undefined;

@@ -19,11 +19,16 @@ const middlewear_1 = require("./middlewear");
 const global_state_1 = __importDefault(require("../websocket_server/global_state"));
 const types_1 = require("../types");
 const status_controller_1 = __importDefault(require("./status.controller"));
+const consensus_1 = require("../transaction-verifier/consensus");
+const web3_js_1 = require("@solana/web3.js");
 class Offer {
-    static create(seller, deckName, offerAddress, nftName, nftImage, price) {
+    static create(tx, seller, deckName, offerAddress, nftName, nftImage, price) {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, middlewear_1.exist)('deck', 'name', deckName);
             const deckId = (yield deck_controller_1.default.getByName(deckName)).id;
+            const deckAddress = (yield deck_controller_1.default.getByName(deckName)).address; //tx: ParsedTransaction, seller: PublicKey, offerAddress: PublicKey, deckAddress, price: string, name: string
+            if (!(yield consensus_1.Tx.checkPlace(tx, new web3_js_1.PublicKey(seller), new web3_js_1.PublicKey(offerAddress), new web3_js_1.PublicKey(deckAddress), price, nftName)))
+                throw types_1.Error.InvalidTransaction;
             const newOffer = yield db_1.default.query(`insert into offer (address, deck_id, seller, name, image, price) values ($1, $2, $3, $4, $5, $6) 
                                         returning *`, [offerAddress, deckId, seller, nftName, nftImage, parseInt(price)]);
             const offer = yield db_1.default.query(`select offer.address, deck.name as deck_name, offer.name, offer.image, offer.seller, offer.price from offer
@@ -33,18 +38,22 @@ class Offer {
             yield status_controller_1.default.updateFloor(deckId);
         });
     }
-    static delete(address) {
+    static delete(tx, address) {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, middlewear_1.exist)('offer', 'address', address);
+            if (!(yield consensus_1.Tx.checkCancel(tx, new web3_js_1.PublicKey(address))))
+                throw types_1.Error.InvalidTransaction;
             const deck = yield db_1.default.query(`select deck.name, deck.id from offer join deck on deck.id=offer.deck_id where offer.address=($1)`, [address]);
             yield db_1.default.query(`delete from offer where offer.address=($1)`, [address]);
             yield global_state_1.default.offerUpdated(types_1.OfferUpdateType.Canceled, address, deck.rows[0].name, undefined);
             yield status_controller_1.default.updateFloor(deck.rows[0].id);
         });
     }
-    static finish(buyer, address) {
+    static finish(tx, buyer, address) {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, middlewear_1.exist)('offer', 'address', address);
+            if (!(yield consensus_1.Tx.checkAccept(tx, new web3_js_1.PublicKey(buyer), new web3_js_1.PublicKey(address))))
+                throw types_1.Error.InvalidTransaction;
             const deck = yield db_1.default.query(`select deck.name, deck.id from offer join deck on deck.id=offer.deck_id where offer.address=($1)`, [address]);
             yield db_1.default.query(`update offer
                         set buyer=($1), fulfilled=true, time=($2)

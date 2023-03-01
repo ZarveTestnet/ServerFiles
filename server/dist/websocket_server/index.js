@@ -17,6 +17,8 @@ const env_1 = __importDefault(require("../env"));
 const event_machine_1 = __importDefault(require("./event_machine"));
 const processor_1 = __importDefault(require("./processor"));
 const global_state_1 = __importDefault(require("./global_state"));
+const consensus_1 = require("../transaction-verifier/consensus");
+const trusted_1 = require("../transaction-verifier/trusted");
 let length = 0;
 exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
     yield global_state_1.default.load();
@@ -29,7 +31,11 @@ exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield (0, processor_1.default)(socket, req);
             socket.emit('response', res);
         }));
+        socket.on('verify_response', (args) => {
+            (0, consensus_1.processVerifyResponse)(args, socket.index);
+        });
         socket.on('disconnect', (args) => {
+            (0, trusted_1.removeTrustedClient)(socket.index); //@ts-ignore
             event_machine_1.default.unSubscribeAll(socket.index);
         });
     });

@@ -16,13 +16,15 @@ exports.verify = void 0;
 const nacl_signature_1 = __importDefault(require("nacl-signature"));
 const types_1 = require("../types");
 const web3_js_1 = require("@solana/web3.js");
-function verify(w) {
+const trusted_1 = require("../transaction-verifier/trusted");
+function verify(w, socket) {
     return __awaiter(this, void 0, void 0, function* () {
         try { //@ts-ignore
             const msg = "Marketplace wants to sign you these message to verify wallet: " + w.key + '.';
             if (!nacl_signature_1.default.verify(msg, Buffer.from(new Uint8Array(w.signature)).toString('base64'), new web3_js_1.PublicKey(w.key).toBuffer().toString('base64'))) {
                 throw types_1.Error.VerificationFailed;
-            }
+            } //@ts-ignore
+            (0, trusted_1.addTrustedClient)(socket.index, socket);
         }
         catch (_e) {
             throw types_1.Error.VerificationFailed;

@@ -10,6 +10,7 @@ var Error;
     Error[Error["InvalidMessage"] = 4] = "InvalidMessage";
     Error[Error["MethodNotFound"] = 5] = "MethodNotFound";
     Error[Error["VerificationFailed"] = 6] = "VerificationFailed";
+    Error[Error["InvalidTransaction"] = 7] = "InvalidTransaction";
 })(Error = exports.Error || (exports.Error = {}));
 var OfferUpdateType;
 (function (OfferUpdateType) {

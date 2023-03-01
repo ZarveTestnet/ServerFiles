@@ -37,10 +37,10 @@ const path = __importStar(require("path"));
 const open_ai_1 = require("../open-ai");
 function generateImages(name, symbol, count) {
     return __awaiter(this, void 0, void 0, function* () {
-        let files = ["http://188.72.203.109:3333/images/" + name + "s.png"];
+        let files = ["https://188.72.203.109:3333/images/" + name + "s.png"];
         yield (0, open_ai_1.generateImage)(name, path.resolve(__dirname, '..', '..', '..', "files", 'images', name + 's.png'));
         for (let i = 0; i < count; i++) {
-            files.push("http://188.72.203.109:3333/images/" + symbol + i.toString() + ".png");
+            files.push("https://188.72.203.109:3333/images/" + symbol + i.toString() + ".png");
             yield (0, open_ai_1.generateImage)(name, path.resolve(__dirname, '..', '..', '..', "files", 'images', symbol + i.toString() + '.png'));
         }
         return files;

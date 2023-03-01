@@ -11,7 +11,7 @@ function writeMetadata(meta, file) {
     const data = JSON.stringify(meta);
     const filepath = path_1.default.resolve(__dirname, '..', '..', '..', "files", 'metadata', file + '.json');
     fs_1.default.writeFileSync(filepath, data);
-    return "http://188.72.203.109:3333/metadata/" + file + ".json";
+    return "https://188.72.203.109:3333/metadata/" + file + ".json";
 }
 exports.writeMetadata = writeMetadata;
 //# sourceMappingURL=metadata.js.map

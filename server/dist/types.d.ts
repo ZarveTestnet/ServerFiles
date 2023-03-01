@@ -5,7 +5,8 @@ export declare enum Error {
     CriticalError = 3,
     InvalidMessage = 4,
     MethodNotFound = 5,
-    VerificationFailed = 6
+    VerificationFailed = 6,
+    InvalidTransaction = 7
 }
 export interface IDeck {
     address: string;

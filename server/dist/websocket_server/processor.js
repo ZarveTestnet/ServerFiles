@@ -26,13 +26,18 @@ function process(socket, req) {
             throw types_1.Error.MethodNotFound;
         let res;
         if (routes_2.default.VerificationRequired.has(msgIn.method)) { //@ts-ignore
-            yield (0, verification_1.verify)(msgIn.verification);
+            yield (0, verification_1.verify)(msgIn.verification, socket);
         }
         if (routes_2.default.SocketRequired.has(msgIn.method)) {
             res = yield route(socket, ...msgIn.params);
         }
         else {
-            res = yield route(...msgIn.params);
+            if (msgIn.tx) {
+                res = yield route(msgIn.tx, ...msgIn.params);
+            }
+            else {
+                res = yield route(...msgIn.params);
+            }
         }
         return {
             result: res,
